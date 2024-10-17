@@ -1,65 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dating Website</title>
-  <link rel="stylesheet" href="output.css">
-  <link
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dating Website</title>
+    <!-- Linking external CSS file -->
+    <link rel="stylesheet" href="output.css" />
+    <!-- Importing Font Awesome for icons -->
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background-color: #fcd5ce; /* Soft pink background */
-    }
-    
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-  </style>
-</head>
-<body class="bg-pink-100 dark:bg-slate-950">
-  <div class="ml-auto">
-    <button
-      id="theme-toggle"
-      class="text-pink-500 text-2xl p-2 focus:outline-none"
-    >
-      <!-- Icon that changes depending on the theme -->
-      <i id="theme-icon" class="fa-solid fa-moon hover:scale-125 ease-in duration-100"></i>
-    </button>
-  </div>
-  <!-- Canvas for Background Animation -->
-  <canvas id="loveCanvas"></canvas>
+    <style>
+      /* Styling the body with a soft pink background */
+      body {
+        margin: 0;
+        background-color: #fcd5ce;
+      }
 
-  <!-- Hero Section -->
-  <section class="flex flex-col justify-center items-center text-center space-y-8">
-    <h1 class="text-5xl font-bold text-pink-500">Find Your True Love Today</h1>
-    <p class="text-xl font-semibold text-pink-500">Join our community and meet your perfect match</p>
+      /* Fullscreen canvas used for background effects */
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Places the canvas behind other elements */
+      }
 
-    <!-- Form -->
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-      <h2 class="text-3xl font-bold text-pink-500 mb-6">Sign Up</h2>
-      <form class="space-y-4">
-        <input class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300" 
-               type="text" placeholder="Name">
-        <input class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300" 
-               type="email" placeholder="Email">
-        <input class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300" 
-               type="password" placeholder="Password">
-        <button class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 rounded-lg">
-          Join Now
+      /* Utility class to hide elements */
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="bg-pink-100 dark:bg-slate-950">
+    <!-- Navigation bar -->
+    <nav class="flex">
+      <div class="ml-auto self-end">
+        <!-- Theme toggle button to switch light/dark modes -->
+        <button
+          id="theme-toggle"
+          class="text-pink-500 text-2xl p-2 focus:outline-none"
+        >
+          <i
+            id="theme-icon"
+            class="fa-solid fa-moon hover:scale-125 ease-in duration-100"
+          ></i>
         </button>
-      </form>
-    </div>
-  </section>
-  <script src="index.js"></script>
-</body>
+      </div>
+    </nav>
+
+    <!-- Canvas for custom background visuals -->
+    <canvas id="loveCanvas"></canvas>
+
+    <!-- Hero Section with Call to Action -->
+    <section
+      class="flex flex-col justify-center items-center text-center space-y-4"
+    >
+      <h1 class="text-5xl font-extrabold text-pink-500 font-mono italic text-shadow-custom">
+        Find Your True Love Today
+      </h1>
+      <p class="text-lg font-semibold text-pink-500 italic">
+        Join our community and meet your perfect match
+      </p>
+
+      <!-- Form container for login and signup -->
+      <div
+        class="bg-white rounded-lg py-6 px-4 w-1/3 dark:bg-pink-100 hover:scale-105 ease-in duration-0 shadow-b hover:shadow-pink-400"
+      >
+        <!-- Tabs to switch between Login and Signup -->
+        <div class="flex justify-between mb-2">
+          <button
+            id="login-tab"
+            class="w-1/2 text-center py-2 font-bold text-white bg-pink-500 rounded-l-lg"
+          >
+            Login
+          </button>
+          <button
+            id="signup-tab"
+            class="w-1/2 text-center py-2 font-bold text-pink-500 bg-gray-100 rounded-r-lg"
+          >
+            Signup
+          </button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login-form" class="space-y-4 my-6 mx-4">
+          <input
+            type="email"
+            placeholder="Email Address"
+            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 hover:scale-110 ease-in duration-0 shadow-b hover:shadow-pink-600"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 hover:scale-110 ease-in duration-0 shadow-b hover:shadow-pink-600"
+          />
+          <!-- Link to reset password -->
+          <a href="#" class="text-pink-500 text-sm float-right font-bold"
+            >Forgot password?</a
+          >
+          <!-- Login Button -->
+          <button
+            class="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-lg font-bold hover:scale-110 ease-in duration-0 shadow-b hover:shadow-pink-600"
+          >
+            Login
+          </button>
+          <!-- Link to switch to Signup -->
+          <p class="text-center text-sm">
+            Not a member?
+            <a href="#" class="text-pink-500 font-bold">Signup now</a>
+          </p>
+        </div>
+
+        <!-- Signup Form (Initially Hidden) -->
+        <form action="" id="signup-form" class="space-y-4 hidden my-6 mx-4">
+          <input
+            type="text"
+            placeholder="Full Name"
+            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 hover:scale-110 ease-in duration-0 shadow-b hover:shadow-pink-600"
+          />
+          <input
+            type="email"
+            placeholder="Email Address"
+            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 hover:scale-110 ease-in duration-0 shadow-b hover:shadow-pink-600"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 hover:scale-110 ease-in duration-0 shadow-b hover:shadow-pink-600"
+          />
+          <!-- Signup Button -->
+          <button
+            class="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-lg font-bold hover:scale-110 ease-in duration-0 shadow-b hover:shadow-pink-600"
+          >
+            Join Now
+          </button>
+          <!-- Link to switch to Login -->
+          <p class="text-center text-sm">
+            Already have an account?
+            <a href="#" class="text-pink-500 font-bold">Login</a>
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- External JavaScript file -->
+    <script src="index.js"></script>
+  </body>
 </html>
